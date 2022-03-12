@@ -4,11 +4,21 @@
 '''
 class Solution:
     def isPalindrome(self, s: str) -> bool:        
-        tmp = s
+        # 过滤掉非数字+字母 的字符
+        s = s.lower() 
+        b =""
+        for i in s:
+            if i >='a'  and i <= 'z' :
+                b+=i
+            if i in ['0','1','2','3','4','5','6','7','8','9'] :
+                b+=i
+            
+        tmp = b
         # reversed() 得到的结果是一个类似迭代器的东西，需要 使用"".join 进行拼接
-        c = "".join(reversed(s))
-        print(tmp)
-        print(c)
+        c = "".join(reversed(b))
+        # print(b)
+        # print(c)
+        return c == tmp # 判断二者是否相等
 
 s = Solution()
-s.isPalindrome('AI is a interest thing')
+s.isPalindrome('A ma, a plan, a canal: Panama')
