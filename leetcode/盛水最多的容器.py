@@ -21,7 +21,25 @@ class Solution:
             else:
                 right -= 1
         return max_area
+    
+    # 常规的方法写这道题，O(n^2)的复杂度
+    def maxArea_normal(self, height: List[int]) -> int:
+        info = []
+        for i in range(len(height)):
+            info.append((i,height[i]))
+        # 先按照x[1]排序，接着按照 x[0] 排序    
+        info.sort(key=lambda x:(x[1],-x[0]),reverse=True)
+        print(info)
+        max_area = min(info[0][1],info[1][1]) * abs(info[0][0]-info[1][0])
+        # 找出两个峰值
+        left = min(info[0][0],info[1][0])
+        right = max(info[0][0],info[1][0])
 
+        for i in range(left+1):
+            for j in range(right,len(height)):
+                cur_aera = (j-i) * min(height[i],height[j])
+                max_area = max(max_area,cur_aera)
+        return max_area
 s = Solution()
 # nums = [1,8,6,2,5,4,8,3,7]
 nums = [1,1]
